@@ -88,7 +88,6 @@ src/style - official.css
 monospace.json
 .idea
 *.iml
-*.pem
 config.local.ts
 **/storageState.json
 junit.xml

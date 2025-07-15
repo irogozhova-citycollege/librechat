@@ -23,6 +23,7 @@ const uaParser = require('./uaParser');
 const checkBan = require('./checkBan');
 const noIndex = require('./noIndex');
 const roles = require('./roles');
+const requireAuth0OrJwtAuth = require('./requireAuth0OrJwtAuth');
 
 module.exports = {
   ...abortMiddleware,
@@ -36,7 +37,7 @@ module.exports = {
   logHeaders,
   moderateText,
   validateModel,
-  requireJwtAuth,
+  requireJwtAuth: requireAuth0OrJwtAuth,
   checkInviteUser,
   requireLdapAuth,
   requireLocalAuth,

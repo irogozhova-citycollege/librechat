@@ -14,7 +14,7 @@ const mongoSanitize = require('express-mongo-sanitize');
 const { connectDb, indexSync } = require('~/db');
 
 const validateImageRequest = require('./middleware/validateImageRequest');
-const { jwtLogin, ldapLogin, passportLogin } = require('~/strategies');
+const { jwtLogin, ldapLogin, passportLogin, auth0Login } = require('~/strategies');
 const errorController = require('./controllers/ErrorController');
 const initializeMCP = require('./services/initializeMCP');
 const configureSocialLogins = require('./socialLogins');
@@ -80,6 +80,11 @@ const startServer = async () => {
   app.use(passport.initialize());
   passport.use(jwtLogin());
   passport.use(passportLogin());
+  
+  /* Auth0 JWT Strategy */
+  if (process.env.AUTH0_DOMAIN && process.env.AUTH0_AUDIENCE) {
+    passport.use('auth0Strategy', auth0Login());
+  }
 
   /* LDAP Auth */
   if (process.env.LDAP_URL && process.env.LDAP_USER_SEARCH_BASE) {

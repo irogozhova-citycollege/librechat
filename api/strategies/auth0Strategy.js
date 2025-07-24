@@ -18,7 +18,7 @@ const jwtLogin = () =>
           audience: process.env.AUTH0_AUDIENCE,
           algorithms: ['RS256']
         },
-        (payload, done) => done(null, { id: payload.sub }) // payload is now verified
+        (payload, done) => done(null, { id: payload.sub, role: 'USER' }) // payload is now verified
     )
 
 module.exports = jwtLogin;

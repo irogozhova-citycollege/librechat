@@ -1,6 +1,7 @@
 const passport = require('passport');
 const cookies = require('cookie');
 const { isEnabled } = require('~/server/utils');
+const requireAuth0OrJwtAuth = require('~/server/middleware/requireAuth0OrJwtAuth');
 
 /**
  * Custom Middleware to handle JWT authentication, with support for OpenID token reuse
@@ -20,4 +21,4 @@ const requireJwtAuth = (req, res, next) => {
   return passport.authenticate('jwt', { session: false })(req, res, next);
 };
 
-module.exports = requireJwtAuth;
+module.exports = requireAuth0OrJwtAuth;

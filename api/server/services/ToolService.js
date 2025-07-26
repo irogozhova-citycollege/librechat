@@ -441,6 +441,7 @@ async function processRequiredActions(client, requiredActions) {
       tool = await createActionTool({
         userId: client.req.user.id,
         res: client.res,
+        req: client.req, // Pass the request object to access user's Auth0 token
         action,
         requestBuilder,
         // Note: intentionally not passing zodSchema, name, and description for assistants API
@@ -702,6 +703,7 @@ async function loadAgentTools({ req, res, agent, tool_resources, openAIApiKey })
       const tool = await createActionTool({
         userId: req.user.id,
         res,
+        req, // Pass the request object to access JWT token
         action,
         requestBuilder,
         zodSchema,

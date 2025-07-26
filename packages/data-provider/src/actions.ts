@@ -230,6 +230,7 @@ class RequestExecutor {
       oauth_client_secret,
       oauth_token_expires_at,
       oauth_access_token = '',
+      authorization_header,
     } = metadata;
 
     const isApiKey = api_key != null && api_key.length > 0 && type === AuthTypeEnum.ServiceHttp;
@@ -248,7 +249,9 @@ class RequestExecutor {
       token_exchange_method
     );
 
-    if (isApiKey && authorization_type === AuthorizationTypeEnum.Basic) {
+    if (authorization_header) {
+      this.authHeaders.authorization = authorization_header;
+    } else if (isApiKey && authorization_type === AuthorizationTypeEnum.Basic) {
       const basicToken = Buffer.from(api_key).toString('base64');
       this.authHeaders['Authorization'] = `Basic ${basicToken}`;
     } else if (isApiKey && authorization_type === AuthorizationTypeEnum.Bearer) {

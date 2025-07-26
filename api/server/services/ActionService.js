@@ -138,6 +138,7 @@ async function loadActionSets(searchParams) {
 async function createActionTool({
   userId,
   res,
+  req, // Add req parameter to access user's Auth0 token
   action,
   requestBuilder,
   zodSchema,
@@ -312,6 +313,8 @@ async function createActionTool({
           throw new Error(`Authentication failed: ${error.message}`);
         }
       }
+
+      metadata.authorization_header = req.headers.authorization;
 
       const response = await preparedExecutor.execute();
 

@@ -330,6 +330,7 @@ export type ActionMetadataRuntime = ActionMetadata & {
   oauth_access_token?: string;
   oauth_refresh_token?: string;
   oauth_token_expires_at?: Date;
+  authorization_header?: string;
 };
 
 export type MCP = {

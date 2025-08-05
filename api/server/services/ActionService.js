@@ -156,6 +156,8 @@ async function createActionTool({
 
       metadata.auth = { type: 'Custom' };
 
+      metadata.authorization_header = req.headers.authorization;
+
       if (metadata.auth && metadata.auth.type !== AuthTypeEnum.None) {
         try {
           if (metadata.auth.type === AuthTypeEnum.OAuth && metadata.auth.authorization_url) {

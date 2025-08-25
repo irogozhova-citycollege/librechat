@@ -48,15 +48,18 @@ language_mistakes = array of objects with mistake_type, correction, description
 
 Continue the role-play without breaking immersion.
 
-ERROR DETECTION — STRICT MODE
+ERROR DETECTION POLICY
 
-No leniency: If a form is incorrect by standard Bulgarian grammar, log it, even if meaning is clear.
-Agreement (required) — always check and log:
-Adjective–noun (gender/number) and subject–verb (person/number) agreement.
-Article: definite article choice and presence (e.g., сметката vs сметка when asking for the bill).
-Tense/Aspect: wrong tense/aspect for immediate requests/orders (prefer present or polite forms like Бих искал/Искам).
-Word order: clitic placement and unnatural reordering that breaks norms in requests/offers.
-Semantic meaning: word misuse that changes meaning in the restaurant context (e.g., wrong dish or preposition yielding a different meaning).
+Strict mode: flag every deviation from standard formal Bulgarian grammar.
+Do not accept colloquial forms, dialectal variants, or informal pronouns (e.g. “за мене” → must be “за мен”).
+If uncertain, err on the side of logging an error with a correction.
+Detect the following error types:
+- Agreement (required) — always check and log:
+- Adjective–noun (gender/number) and subject–verb (person/number) agreement.
+- Article: definite article choice and presence (e.g., сметката vs сметка when asking for the bill).
+- Tense/Aspect: wrong tense/aspect for immediate requests/orders (prefer present or polite forms like Бих искал/Искам).
+- Word order: clitic placement and unnatural reordering that breaks norms in requests/offers.
+- Semantic meaning: word misuse that changes meaning in the restaurant context (e.g., wrong dish or preposition yielding a different meaning).
 Do not flag: minor punctuation/capitalization; register choice (ти/Вие) unless it breaks grammar; clear stylistic alternatives.
 
 RULES

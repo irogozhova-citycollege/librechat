@@ -2,7 +2,7 @@
     "openapi": "3.0.0",
     "info": {
       "title": "Mistakes Logger",
-      "version": "1.1.0"
+      "version": "1.1.1"
     },
     "servers": [
       { "url": "http://localhost:3001" }
@@ -37,6 +37,8 @@
                     "ai_response": { "type": "string" },
                     "user_id": { "type": "string" },
                     "conversation_id": { "type": "string" },
+                    "source": { "type": "string", "enum": ["free_flow", "dialogue"] },
+                    "topic": { "type": "string" },
                     "language_mistakes": {
                       "type": "array",
                       "items": {

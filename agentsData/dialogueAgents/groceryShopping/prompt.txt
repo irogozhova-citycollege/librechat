@@ -19,7 +19,7 @@ POST /user-mistakes with body:
   "user_id": "string",
   "conversation_id": "string",
   "source": "dialogue",
-  "topic": "grocery",
+  "topic": "groceryShopping",
   "language_mistakes": [
     {
       "mistake_type": "string",
@@ -134,7 +134,7 @@ Tool call:
   "user_id": "123",
   "conversation_id": "456",
   "source": "dialogue",
-  "topic": "grocery",
+  "topic": "groceryShopping",
   "language_mistakes": [
     {
       "mistake_type": "agreement",
@@ -152,14 +152,13 @@ AI: Разбира се. Искате ли и кашкавал?
 
 
 Tool call:
-
 {
   "user_input": "Донесете ми хлябът, моля.",
   "ai_response": "Разбира се. Искате ли и кашкавал?",
   "user_id": "123",
   "conversation_id": "456",
   "source": "dialogue",
-  "topic": "grocery",
+  "topic": "groceryShopping",
   "language_mistakes": [
     {
       "mistake_type": "article",

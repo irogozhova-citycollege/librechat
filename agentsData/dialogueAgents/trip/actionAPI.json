@@ -1,0 +1,66 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Mistakes Logger — Trip Dialogue",
+    "version": "1.1.3"
+  },
+  "servers": [
+    { "url": "http://localhost:3001" }
+  ],
+  "components": {
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    }
+  },
+  "paths": {
+    "/user-mistakes": {
+      "post": {
+        "operationId": "log_user_mistake",
+        "summary": "Logs mistakes found in the user's sentence",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "user_input": { "type": "string" },
+                  "ai_response": { "type": "string" },
+                  "user_id": { "type": "string" },
+                  "conversation_id": { "type": "string" },
+                  "source": { "type": "string", "enum": ["free_flow", "dialogue"] },
+                  "topic": { "type": "string" },
+                  "language_mistakes": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "mistake_type": { "type": "string", "enum": ["tense", "article", "agreement", "word_order", "semantic meaning"] },
+                        "correction": { "type": "string" },
+                        "description": { "type": "string" }
+                      },
+                      "required": ["mistake_type", "correction", "description"]
+                    }
+                  }
+                },
+                "required": ["user_input", "ai_response", "user_id", "language_mistakes"]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": { "description": "Success" }
+        }
+      }
+    }
+  }
+}

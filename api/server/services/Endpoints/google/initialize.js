@@ -25,7 +25,7 @@ const initializeClient = async ({ req, res, endpointOption, overrideModel, optio
     /** Only attempt to load service key if GOOGLE_KEY is not provided */
     try {
       const serviceKeyPath =
-        process.env.GOOGLE_SERVICE_KEY_FILE_PATH ||
+        process.env.GOOGLE_SERVICE_KEY_FILE ||
         path.join(__dirname, '../../../..', 'data', 'auth.json');
       serviceKey = await loadServiceKey(serviceKeyPath);
       if (!serviceKey) {
@@ -46,10 +46,11 @@ const initializeClient = async ({ req, res, endpointOption, overrideModel, optio
 
   let clientOptions = {};
 
+  const appConfig = req.config;
   /** @type {undefined | TBaseEndpoint} */
-  const allConfig = req.app.locals.all;
+  const allConfig = appConfig.endpoints?.all;
   /** @type {undefined | TBaseEndpoint} */
-  const googleConfig = req.app.locals[EModelEndpoint.google];
+  const googleConfig = appConfig.endpoints?.[EModelEndpoint.google];
 
   if (googleConfig) {
     clientOptions.streamRate = googleConfig.streamRate;

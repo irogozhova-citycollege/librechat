@@ -1,16 +1,16 @@
 const path = require('path');
 const { logger } = require('@librechat/data-schemas');
-const { loadServiceKey, isUserProvided } = require('@librechat/api');
 const { EModelEndpoint } = require('librechat-data-provider');
+const { loadServiceKey, isUserProvided } = require('@librechat/api');
 const { config } = require('./EndpointService');
 
 const { openAIApiKey, azureOpenAIApiKey, useAzurePlugins, userProvidedOpenAI, googleKey } = config;
 
 /**
  * Load async endpoints and return a configuration object
- * @param {Express.Request} req - The request object
+ * @param {AppConfig} [appConfig] - The app configuration object
  */
-async function loadAsyncEndpoints(req) {
+async function loadAsyncEndpoints(appConfig) {
   let serviceKey, googleUserProvides;
 
   /** Check if GOOGLE_KEY is provided at all(including 'user_provided') */
@@ -22,8 +22,7 @@ async function loadAsyncEndpoints(req) {
   } else {
     /** Only attempt to load service key if GOOGLE_KEY is not provided */
     const serviceKeyPath =
-      process.env.GOOGLE_SERVICE_KEY_FILE_PATH ||
-      path.join(__dirname, '../../..', 'data', 'auth.json');
+      process.env.GOOGLE_SERVICE_KEY_FILE || path.join(__dirname, '../../..', 'data', 'auth.json');
 
     try {
       serviceKey = await loadServiceKey(serviceKeyPath);
@@ -35,7 +34,7 @@ async function loadAsyncEndpoints(req) {
 
   const google = serviceKey || isGoogleKeyProvided ? { userProvide: googleUserProvides } : false;
 
-  const useAzure = req.app.locals[EModelEndpoint.azureOpenAI]?.plugins;
+  const useAzure = !!appConfig?.endpoints?.[EModelEndpoint.azureOpenAI]?.plugins;
   const gptPlugins =
     useAzure || openAIApiKey || azureOpenAIApiKey
       ? {

@@ -1,0 +1,42 @@
+services:
+  - type: web
+    name: librechat-api
+    env: node
+    plan: starter
+    buildCommand: npm install && npm run frontend
+    startCommand: npm run backend
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: HOST
+        value: 0.0.0.0
+      - key: PORT
+        fromService:
+          type: web
+          name: librechat-api
+          property: port
+      - key: MONGO_URI
+        fromDatabase:
+          name: librechat-mongodb
+          property: connectionString
+      - key: MEILI_HOST
+        fromService:
+          type: web
+          name: librechat-meilisearch
+          property: host
+      - key: RAG_PORT
+        value: 8000
+      - key: RAG_API_URL
+        fromService:
+          type: web
+          name: librechat-rag-api
+          property: host
+
+databases:
+  - name: librechat-mongodb
+    plan: starter
+    engine: mongodb
+
+  - name: librechat-postgres
+    plan: starter
+    engine: postgresql

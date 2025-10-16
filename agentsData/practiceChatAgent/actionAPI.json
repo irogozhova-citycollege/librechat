@@ -78,9 +78,9 @@
     }
   },
   "paths": {
-    "/user-mistakes/practice-item": {
+    "/user-mistakes/item": {
       "get": {
-        "operationId": "get_practice_item",
+        "operationId": "get_item",
         "summary": "Get next due practice item",
         "security": [{ "bearerAuth": [] }],
         "responses": {
@@ -95,7 +95,7 @@
         }
       }
     },
-    "/user-mistakes/{id}/attempt": {
+    "/user-mistakes/{id}/attempts": {
       "post": {
         "operationId": "log_attempt",
         "summary": "Log user attempt and update SRS",

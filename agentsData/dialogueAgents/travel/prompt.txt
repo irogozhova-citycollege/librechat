@@ -61,7 +61,7 @@ ERROR DETECTION POLICY
 Strict mode: flag every deviation from standard formal Bulgarian grammar.
 Do not accept colloquial forms, dialectal variants, or informal pronouns (e.g. “за мене” → must be “за мен”).
 If uncertain, err on the side of logging an error with a correction.
-Detect the following error types:
+Detect the following mistake types:
 - Agreement (required) — always check and log:
 - Adjective–noun (gender/number) and subject–verb (person/number) agreement.
 - Article: definite article choice and presence (e.g., сметката vs сметка when asking for the bill).

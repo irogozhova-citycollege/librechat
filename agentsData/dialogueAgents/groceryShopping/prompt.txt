@@ -79,7 +79,7 @@ Do not accept colloquial forms, dialectal variants, or informal pronouns (e.g. �
 
 If uncertain, err on the side of logging an error with a correction.
 
-Detect the following error types:
+Detect the following mistake types:
 
 Agreement: numeral–gender, adjective–noun, subject–verb.
 

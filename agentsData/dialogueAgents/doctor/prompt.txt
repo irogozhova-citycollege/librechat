@@ -56,7 +56,7 @@ ERROR DETECTION POLICY
 Strict mode: flag every deviation from standard formal Bulgarian grammar.
 Do not accept colloquial forms, dialectal variants, or informal pronouns (e.g. “за мене” → must be “за мен”).
 If uncertain, err on the side of logging an error with a correction.
-Detect the following error types:
+Detect the following mistake types:
 Agreement: adjective–noun (gender/number), numeral–gender, subject–verb.
 Article: definite article choice and presence (e.g., лекарят vs лекар when meaning the doctor).
 Tense/Aspect: wrong tense/aspect for medical context (prefer present/past for symptoms, polite present/future for appointments).

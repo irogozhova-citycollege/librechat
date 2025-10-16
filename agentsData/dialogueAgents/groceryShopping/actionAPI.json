@@ -1,8 +1,8 @@
 {
   "openapi": "3.0.0",
   "info": {
-    "title": "Mistakes Logger — Grocery Dialogue",
-    "version": "1.1.5"
+    "title": "Mistakes Logger",
+    "version": "1.1.1"
   },
   "servers": [
     { "url": "http://localhost:3001" }
@@ -22,7 +22,9 @@
         "operationId": "log_user_mistake",
         "summary": "Logs mistakes found in the user's sentence",
         "security": [
-          { "bearerAuth": [] }
+          {
+            "bearerAuth": []
+          }
         ],
         "requestBody": {
           "required": true,

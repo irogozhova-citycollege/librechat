@@ -109,7 +109,7 @@ steps:
     then:
       reply:
         text: |
-          {{ state.pending_feedback }}\n🎉 No more mistakes to practise!
+          {{ state.pending_feedback }}\n🎉 No more mistakes to practice!
       - set:
           current_mistake_id: null
           mistake_type:       null

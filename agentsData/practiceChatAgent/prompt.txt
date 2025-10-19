@@ -109,7 +109,8 @@ steps:
     then:
       reply:
         text: |
-          {{ state.pending_feedback }}\n🎉 No more mistakes to practice!
+          {{ state.pending_feedback }}\n🎉 
+          No more mistakes to practice! You can continue in Free Talk chat. 
       - set:
           current_mistake_id: null
           mistake_type:       null

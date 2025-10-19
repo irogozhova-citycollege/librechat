@@ -14,6 +14,16 @@ state.mistake_type         # string|null
 state.english_sentence     # string|null
 state.pending_feedback     # string|null
 
+# ──────────── Helper macro ────────────
+{% macro generate_sentence(original) %}
+  {{ llm("
+    Generate ONE English sentence (6–12 words) that explicitly exercises the grammar feature: "
+    ~ feature ~ ".
+    Avoid idioms; keep vocabulary neutral.
+    Return ONLY the sentence — no quotation marks."
+  ) }}
+{% endmacro %}
+
 # ───────── FLOW 1: initial ─────────
 name: initial
 trigger: user_message matches /^(practice|практика)$/i
@@ -23,6 +33,8 @@ steps:
       mistake_type:       null
       english_sentence:   null
       pending_feedback:   null
+  # 🚨 **MANDATORY RULE** — do this first, every time: 
+  # call get_item. No exceptions.
   - call get_item
   - end
 
@@ -45,16 +57,20 @@ steps:
 
 # ───────── FLOW 3: grade_and_log ─────────
 name: grade_and_log
-trigger: user_message NOT matches /^(practice|практика|stop|quit|exit)$/i
+trigger: user_message NOT matches /^(practice|stop|quit|exit)$/i
 steps:
   - if: state.current_mistake_id == null
-    then: { reply: { text: 'Type "practice" or "практика" to start.' }, end: null }
+    then: { reply: { text: 'Type "practice" to start.' }, end: null }
   - set:
       result: |
         {{ evaluate_translation(state.english_sentence, user_message, state.mistake_type) }}
       pending_feedback: |
         {% if $.result == "correct" %}
-          ✅ Correct!
+          {{ llm("
+            Write ONE very short celebratory confirmation in English
+            that includes exactly one emoji. Examples: ✅ Correct!, 🎉 Great job!.
+            Return ONLY the phrase — no quotes.
+          ") }}
         {% elif $.result == "partial" %}
           Almost. Watch the use of {{ state.mistake_type }}.
           Possible translation: {{ correct_bulgarian(state.english_sentence) }}
@@ -88,7 +104,7 @@ steps:
       reply:
         text: |
           {{ state.pending_feedback }}
-          🎉 No more mistakes to practise today!
+          🎉 No more mistakes to practise!
       - set:
           current_mistake_id: null
           mistake_type:       null

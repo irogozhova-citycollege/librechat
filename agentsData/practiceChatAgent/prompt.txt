@@ -16,7 +16,7 @@ state.pending_feedback     # string|null
 
 # ───────── FLOW 1: initial ─────────
 name: initial
-trigger: user_message matches /^(practice)$/i
+trigger: user_message matches /^(practice|практика)$/i
 steps:
   - set:
       current_mistake_id: null
@@ -45,10 +45,10 @@ steps:
 
 # ───────── FLOW 3: grade_and_log ─────────
 name: grade_and_log
-trigger: user_message NOT matches /^(practice|stop|quit|exit)$/i
+trigger: user_message NOT matches /^(practice|практика|stop|quit|exit)$/i
 steps:
   - if: state.current_mistake_id == null
-    then: { reply: { text: 'Type "practice" to start.' }, end: null }
+    then: { reply: { text: 'Type "practice" or "практика" to start.' }, end: null }
   - set:
       result: |
         {{ evaluate_translation(state.english_sentence, user_message, state.mistake_type) }}

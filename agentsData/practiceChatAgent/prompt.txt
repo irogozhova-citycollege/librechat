@@ -43,7 +43,7 @@ name: present_first
 trigger: last_tool == "get_item"
 steps:
   - if: response.status == 404
-    then: { reply: { text: "🎉 No more mistakes to practise!" }, end: null }
+    then: { reply: { text: "🎉 No more mistakes to practiсe!" }, end: null }
   - save:
       current_mistake_id: $.log_attempt_id
       mistake_type:       $.mistake_type

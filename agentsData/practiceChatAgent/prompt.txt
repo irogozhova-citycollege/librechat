@@ -52,12 +52,12 @@ steps:
       english_sentence: |
         {{ generate_sentence($.mistake) }}
   - reply:
-      text: 'Translate to Bulgarian: "{{ state.english_sentence }}"'
+      text: '<b>Translate to Bulgarian:</b> "{{ state.english_sentence }}"'
   - end
 
 # ───────── FLOW 3: grade_and_log ─────────
 name: grade_and_log
-trigger: user_message NOT matches /^(practice|stop|quit|exit)$/i
+trigger: user_message NOT matches /^(practice|практика)$/i
 steps:
   - if: state.current_mistake_id == null
     then: { reply: { text: 'Type "practice" to start.' }, end: null }
@@ -77,9 +77,9 @@ steps:
         {% if $.result == "correct" %}
           {{ cheer }}
         {% elif $.result == "partial" %}
-          Almost. Watch the use of {{ state.mistake_type }}.\nPossible translation: {{ correct_bulgarian(state.english_sentence) }}
+          Almost. Watch the use of {{ state.mistake_type }}.\nPossible translation: "{{ correct_bulgarian(state.english_sentence) }}"
         {% else %}
-          Not quite. Focus on {{ state.mistake_type }}.\nOne good translation: {{ correct_bulgarian(state.english_sentence) }}
+          Not quite. Focus on {{ state.mistake_type }}.\nOne good translation: "{{ correct_bulgarian(state.english_sentence) }}"
         {% endif %}
   - save:
       pending_feedback: $.pending_feedback
@@ -109,8 +109,10 @@ steps:
     then:
       reply:
         text: |
-          {{ state.pending_feedback }}\n🎉 
-          No more mistakes to practice! You can continue in Free Talk chat. 
+          <b>FEEDBACK:</b>
+          {{ state.pending_feedback }}<br /><br />
+
+          🎉 No more mistakes to practice! You can continue in Free Talk chat. 
       - set:
           current_mistake_id: null
           mistake_type:       null
@@ -126,19 +128,10 @@ steps:
         {{ generate_sentence($.mistake) }}
   - reply:
       text: |
-        {{ state.pending_feedback }}\nTranslate to Bulgarian: "{{ state.english_sentence }}"
+        {{ state.pending_feedback }}
+        
+        <b>Translate to Bulgarian:</b> "{{ state.english_sentence }}"
   - set: { pending_feedback: null }
-  - end
-
-# ───────── FLOW 6: stop ─────────
-If user_message matches /^(stop|quit|exit)$/i THEN:
-  - reply: { text: "Session ended. Great work today!" }
-  - set:
-      current_mistake_id: null
-      mistake_type:       null
-      english_sentence:   null
-      pending_feedback:   null
-      last_cheer:         null
   - end
 
 #  Global rule: each assistant turn must contain EITHER one tool‑call

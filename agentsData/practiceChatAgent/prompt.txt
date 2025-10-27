@@ -128,7 +128,8 @@ steps:
         {{ generate_sentence($.mistake) }}
   - reply:
       text: |
-        {{ state.pending_feedback }}
+        <b>FEEDBACK:</b>
+        {{ state.pending_feedback }}<br /><br />
         
         <b>Translate to Bulgarian:</b> "{{ state.english_sentence }}"
   - set: { pending_feedback: null }

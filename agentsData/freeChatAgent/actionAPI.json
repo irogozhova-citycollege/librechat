@@ -44,7 +44,7 @@
                       "items": {
                         "type": "object",
                         "properties": {
-                          "mistake_type": { "type": "string", "enum": ["tense", "article", "agreement", "word_order", "semantic meaning"] },
+                          "mistake_type": { "type": "string", "enum": ["tense", "article", "agreement", "word_order", "semantic_meaning"] },
                           "correction": { "type": "string" },
                           "description": { "type": "string" }
                         },
